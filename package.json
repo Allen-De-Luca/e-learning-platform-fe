@@ -9,13 +9,18 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "generate-api": "openapi-generator-cli generate -i http://localhost:8080/v3/api-docs -g typescript-fetch -o frontend-api"
+    "generate-api": "rmdir /s /q frontend-api && openapi-generator-cli generate -i http://localhost:8080/v3/api-docs -g typescript-fetch -o frontend-api"
   },
   "dependencies": {
+    "@fullcalendar/core": "^6.1.15",
+    "@fullcalendar/daygrid": "^6.1.15",
+    "@fullcalendar/interaction": "^6.1.15",
+    "@fullcalendar/vue3": "^6.1.15",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.16.3",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.10.7",
     "@vitejs/plugin-vue": "^5.2.1",

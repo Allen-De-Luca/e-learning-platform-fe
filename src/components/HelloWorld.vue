@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { ElearningPlatformControllerApi } from "../../frontend-api/apis";
+import { CustomerControllerApi } from "../../frontend-api/apis";
 
-const apiClient = new ElearningPlatformControllerApi();
+const apiClient = new CustomerControllerApi();
 const idInput = ref<number | null>(null);
 const data = ref<number | null>(null);
 
 const fetchData = async () => {
   try {
     if (idInput.value !== null) {
-      data.value = await apiClient.returnId({ id: idInput.value });
+      //data.value = await apiClient.addCustomer({ id: idInput.value });
     }
   } catch (error) {
     console.error("API call failed:", error);

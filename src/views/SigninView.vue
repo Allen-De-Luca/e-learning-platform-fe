@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import TopMenu from '../components/widgets/TopMenu.vue'
+import SigninCard from '@/components/cards/SigninCard.vue';
 </script>
 
 <template>
   <main>
-    <TopMenu />
+    <SigninCard/>
   </main>
 </template>
