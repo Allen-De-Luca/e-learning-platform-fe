@@ -37,35 +37,47 @@ const handleSubmit = async () => {
 
 <template>
   <main>
-    <form @submit.prevent="handleSubmit">
-      <div>
-        <label for="username">Username:</label>
-        <input 
-          type="text" 
-          id="username" 
-          v-model="username" 
-          placeholder="Enter your username" 
-          required
-        />
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input 
-          type="password" 
-          id="password" 
-          v-model="password" 
-          placeholder="Enter your password" 
-          required
-        />
-      </div>
-      <button type="submit">Submit</button>
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <form @submit.prevent="handleSubmit">
+            <div>
+              <label class="subtitle is-5" for="username">Username:</label>
+              <input class="input" 
+                type="text" 
+                id="username" 
+                v-model="username" 
+                placeholder="Enter your username" 
+                required
+              />
+            </div>
+            <div>
+              <label class="subtitle is-5" for="password">Password:</label>
+              <input class="input"
+                type="password" 
+                id="password" 
+                v-model="password" 
+                placeholder="Enter your password" 
+                required
+              />
+            </div>
+            <button class="button" type="submit">Login</button>
 
-      <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
-    </form>
+            <p v-if="errorMessage" style="color: red;">{{ errorMessage }}</p>
+          </form>
+        </div>
+        
+      </div>
+    </div>
   </main>
 </template>
 
 <style scoped>
+
+.card{
+  width: 300px;
+}
+
 form {
   display: flex;
   flex-direction: column;

@@ -5,6 +5,7 @@ import type { Appointment } from '../../../frontend-api/models';
 
 const props = defineProps({
   show: Boolean,
+  customerName: String,
   appointments: Array as PropType<Appointment[]>
 })
 </script>
@@ -12,11 +13,11 @@ const props = defineProps({
 <template>
   <Transition name="modal">
     <div v-if="show" class="modal-mask">
-      <div class="modal-container">
-        <div class="modal-header">
-          <slot name="header"></slot>
+      <div class="modal-container has-background-light">
+        <div class="modal-header has-background-light">
+          <p class="subtitle is-4">{{ customerName }}</p>
         </div>
-        <div class="modal-body">
+        <div class="modal-body has-background-light">
             <AppointmentCard 
             v-for="(appointment, index) in appointments" 
             :key="index" 
@@ -24,13 +25,13 @@ const props = defineProps({
             >
             </AppointmentCard>
         </div>
-        <div class="modal-footer">
+        <div class="modal-footer has-background-light">
           <slot name="footer">
-            <button
+            <button class="button"
               @click="$emit('close')"
             >Cancel</button>
             <button
-              class="modal-default-button"
+              class="button is-primary modal-default-button"
               @click="$emit('close')"
             >Save</button>
           </slot>
@@ -54,23 +55,26 @@ const props = defineProps({
 }
 
 .modal-container {
-  width: 300px;
+  width: 350px; /* Adjust width as needed */
+  max-height: 80vh; /* Ensures the modal does not exceed viewport height */
   margin: auto;
   padding: 20px 30px;
   background-color: #fff;
-  border-radius: 2px;
+  border-radius: 8px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
   transition: all 0.3s ease;
-}
-
-.modal-header h3 {
-  margin-top: 0;
-  color: #42b983;
+  display: flex;
+  flex-direction: column; /* Ensures proper structure for scrolling */
 }
 
 .modal-body {
-  margin: 20px 0;
+  flex: 1; /* Takes up remaining space */
+  overflow-y: auto; /* Enables scrolling */
+  max-height: 70vh; /* Restricts the modal body height */
+  padding: 10px; /* Avoids scrollbar overlapping content */
+  padding-left: 0px;
 }
+
 
 .modal-default-button {
   float: right;

@@ -1,11 +1,16 @@
+@import "bulma/css/bulma.css";
 
 body {
   margin: 0;
   padding: 0;
 }
 
-#app {
-  font-weight: normal;
-  box-sizing: border-box;
-  gap: 2rem;
+button, input[type="submit"], input[type="reset"] {
+	background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
 }

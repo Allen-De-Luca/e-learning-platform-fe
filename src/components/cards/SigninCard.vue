@@ -45,76 +45,94 @@ const handleSubmit = async () => {
 </script>
 
 <template>
-  <form @submit.prevent="handleSubmit">
-    <div>
-      <label for="username">Username:</label>
-      <input 
-        type="text" 
-        id="username" 
-        v-model="formData.username" 
-        placeholder="Enter your username" 
-        required 
-      />
-    </div>
+  <main>
+    <div class="card">
+      <div class="card-content">
+        <div class="content">
+          <form @submit.prevent="handleSubmit">
+            <div>
+              <label class="subtitle is-5" for="username">Username:</label>
+              <input class="input" 
+                type="text" 
+                id="username" 
+                v-model="formData.username" 
+                placeholder="Enter your username" 
+                required
+              />
+            </div>
+            <div>
+              <label class="subtitle is-5" for="password">Password:</label>
+              <input class="input"
+                type="password" 
+                id="password" 
+                v-model="formData.password" 
+                placeholder="Enter your password" 
+                required
+              />
+            </div>
+            <div>
+              <label class="subtitle is-5" for="contactName">First Name:</label>
+              <input class="input"
+                type="text" 
+                id="contactName" 
+                v-model="formData.contactName" 
+                placeholder="Enter your first name" 
+                required
+              />
+            </div>
+            <div>
+              <label class="subtitle is-5" for="contactLastName">Last Name:</label>
+              <input class="input"
+                type="text" 
+                id="contactLastName" 
+                v-model="formData.contactLastName" 
+                placeholder="Enter your last name" 
+                required
+              />
+            </div>
+            <div>
+              <label class="subtitle is-5" for="email">Emails:</label>
+              <div v-for="(email, index) in formData.email" :key="index" class="email-input-group">
+                <input class="input"
+                  type="email" 
+                  v-model="formData.email[index]" 
+                  placeholder="Enter an email address" 
+                  required 
+                />
+                <button class="button is-light is-small"
+                  type="button" 
+                  v-if="formData.email.length > 1" 
+                  @click="removeEmailField(index)"
+                >
+                  REMOVE
+                </button>
+              </div>
+              <button class="button is-primary is-small" type="button" @click="addEmailField">ADD</button>
+            </div>
+            <button class="button" type="submit">Signin</button>
 
-    <div>
-      <label for="password">Password:</label>
-      <input 
-        type="password" 
-        id="password" 
-        v-model="formData.password" 
-        placeholder="Enter your password" 
-        required 
-      />
-    </div>
-
-    <div>
-      <label for="contactName">First Name:</label>
-      <input 
-        type="text" 
-        id="contactName" 
-        v-model="formData.contactName" 
-        placeholder="Enter your contact name" 
-        required 
-      />
-    </div>
-
-    <div>
-      <label for="contactLastName">Last Name:</label>
-      <input 
-        type="text" 
-        id="contactLastName" 
-        v-model="formData.contactLastName" 
-        placeholder="Enter your contact last name" 
-        required 
-      />
-    </div>
-
-    <div>
-      <label for="email">Emails:</label>
-      <div v-for="(email, index) in formData.email" :key="index" class="email-input-group">
-        <input 
-          type="email" 
-          v-model="formData.email[index]" 
-          placeholder="Enter an email address" 
-          required 
-        />
-        <button 
-          type="button" 
-          v-if="formData.email.length > 1" 
-          @click="removeEmailField(index)"
-        >
-          -
-        </button>
+          </form>
+        </div>
+        
       </div>
-      <button type="button" @click="addEmailField">+</button>
     </div>
-
-    <button type="submit">Submit</button>
-  </form>
+  </main>
 </template>
 
 <style scoped>
+
+.card {
+  width: 350px;
+  max-width: 100%;
+}
+
+.email-input-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 5px;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -129,7 +147,7 @@ div {
 input {
   padding: 8px;
   margin-top: 4px;
-  width: 250px;
+  width: 300px;
 }
 
 button {

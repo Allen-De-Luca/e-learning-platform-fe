@@ -3,7 +3,13 @@ import SigninCard from '@/components/cards/SigninCard.vue';
 </script>
 
 <template>
-  <main>
+  <main class="section is-flex is-justify-content-center">
     <SigninCard/>
   </main>
 </template>
+
+<style scoped>
+main {
+  padding-top: 1vw;
+}
+</style>

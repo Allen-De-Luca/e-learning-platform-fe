@@ -8,10 +8,32 @@ const props = defineProps({
 </script>
 
 <template>
-  <div>
-    <h3>Appointment date:</h3>
-    <p>{{ appointment?.appointmentDate }}</p>
-    <h3>Reminder date:</h3>
-    <p>{{ appointment?.reminderDate }}</p>
-  </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="content">
+        <p class="subtitle is-4">Appointment date:</p>
+        <p class="subtitle is-5">
+          {{ 
+            appointment?.appointmentDate ? 
+            new Date(appointment.appointmentDate)
+            .toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }) 
+            : '' 
+          }}
+        </p>
+        <p class="subtitle is-4">Reminder date:</p>
+        <p class="subtitle is-5">
+          {{ 
+            appointment?.reminderDate ? 
+            new Date(appointment.reminderDate)
+            .toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: '2-digit' }) 
+            : '' 
+          }}
+        </p>
+      </div>
+    </div>
+  </div>  
 </template>
+
+<style scoped>
+
+</style>

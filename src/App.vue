@@ -3,7 +3,7 @@ import TopMenu from './components/widgets/TopMenu.vue'
 </script>
 
 <template>
-  <main>
+  <main class="has-background-light">
     <TopMenu class="top-menu"/>
     <router-view class="view"/>
   </main>
@@ -12,20 +12,16 @@ import TopMenu from './components/widgets/TopMenu.vue'
 <style scoped>
   main {
     display: grid;
-    grid-template-rows: auto 1fr; /* auto for TopMenu, 1fr for the view */
-    height: 100vh; /* Make the main element occupy full viewport height */
+    grid-template-rows: auto 1fr;
+    height:100vh;
   }
 
-  .top-menu {
-    border: 1px solid red;
-    padding: 10px;
-    /* Optional: You can set a fixed height for the top menu if you prefer */
+  .top-menu{
+    box-shadow: 0px 3px 10px lightgrey
   }
 
   .view {
-    border: 1px solid blue;
     padding: 10px;
-    /* The view will take the remaining space (1fr) */
-    overflow: auto; /* Optional: Makes sure content inside router-view scrolls if too large */
+    overflow: auto;
   }
 </style>

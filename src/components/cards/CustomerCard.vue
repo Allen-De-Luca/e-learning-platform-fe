@@ -17,44 +17,56 @@ const fetchCustomerAppointments = async (id: number) => {
   showModal.value = true;
 }
 
+function getModalTitle(customer: Customer){
+  return customer.company + ' - ' + customer.lastName;
+}
+
 </script>
 
 <template>
-<div class="card">
-      <h2>Customer Details</h2>
-      <div>
-        <strong>Full Name:</strong>
-        <p>{{ customer.firstName }} {{ customer.lastName }}</p>
-      </div>
+  <div class="card">
+    <div class="card-content">
+      <div class="content">
+        <h2>{{ customer.company }} - {{ customer.lastName }}</h2>
+        <div>
+          <strong>Full Name:</strong>
+          <p>{{ customer.firstName }} {{ customer.lastName }}</p>
+        </div>
 
-      <div v-if="customer.company">
-        <strong>Company:</strong>
-        <p>{{ customer.company }}</p>
-      </div>
+        <div v-if="customer.company">
+          <strong>Company:</strong>
+          <p>{{ customer.company }}</p>
+        </div>
 
-      <div v-if="customer.phoneNumber">
-        <strong>Phone Number:</strong>
-        <p>{{ customer.phoneNumber }}</p>
-      </div>
+        <div v-if="customer.phoneNumber">
+          <strong>Phone Number:</strong>
+          <p>{{ customer.phoneNumber }}</p>
+        </div>
 
-      <div v-if="customer.vatNumber">
-        <strong>VAT Number:</strong>
-        <p>{{ customer.vatNumber }}</p>
-      </div>
+        <div v-if="customer.vatNumber">
+          <strong>VAT Number:</strong>
+          <p>{{ customer.vatNumber }}</p>
+        </div>
 
-      <div v-if="customer.emails?.length">
-        <strong>Emails:</strong>
-        <ul>
-          <li v-for="(email, index) in customer.emails" :key="index">{{ email }}</li>
-        </ul>
+        <div v-if="customer.emails?.length">
+          <strong>Emails:</strong>
+          <ul>
+            <li v-for="(email, index) in customer.emails" :key="index">{{ email }}</li>
+          </ul>
+        </div>
+        <br>
+        <button class="button" @click="fetchCustomerAppointments(customer.id!)">Show appointments</button>
       </div>
-      <button id="show-modal" @click="fetchCustomerAppointments(customer.id!)">Apri appuntamenti</button>
     </div>
+  </div>
   <Teleport to="body">
-    <AppointmentsListModal v-if="selectedCustomerAppointments" :appointments="selectedCustomerAppointments" :show="showModal" @close="showModal = false">
-      <template #header>
-        <h3></h3>
-      </template>
+    <AppointmentsListModal v-if="selectedCustomerAppointments.length" :appointments="selectedCustomerAppointments" :customerName="getModalTitle(customer)" :show="showModal" @close="showModal = false">
     </AppointmentsListModal>
   </Teleport>
 </template>
+
+<style scoped>
+.card{
+  width: 400px;
+}
+</style>

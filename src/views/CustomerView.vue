@@ -17,8 +17,18 @@ onMounted(async () => {
 
 <template>
   <main>
-    <div v-for="customer in customerData" :key="customer.id">
-      <CustomerCard :customer="customer" />
+    <div class="container">
+      <div class="columns is-multiline">
+        <div class="column is-one-third" v-for="customer in customerData" :key="customer.id">
+          <CustomerCard class="card is-fullheight" :customer="customer" />
+        </div>
+      </div>
     </div>
   </main>
 </template>
+
+<style scoped>
+.container{
+  padding-top: 3vw;
+}
+</style>
