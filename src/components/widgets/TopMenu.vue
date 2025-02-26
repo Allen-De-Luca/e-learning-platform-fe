@@ -14,7 +14,7 @@ function logout(){
   <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="/login">
-      <img class="logo" src="..\..\assets\site-icon.svg" alt="logo"/>
+      <img class="logo" src="..\..\assets\logo.svg" alt="logo"/>
       <p>
         <span class="logo-text" style="color: black;">RAD</span>
         <span class="logo-text" style="color: red;">minder</span>

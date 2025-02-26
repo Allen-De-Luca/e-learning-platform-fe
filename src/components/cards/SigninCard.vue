@@ -2,6 +2,9 @@
 import { ref } from 'vue';
 import { AuthControllerApi } from '../../../frontend-api/api';
 import type { RegistrationReq } from '../../../frontend-api/api';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const formData = ref({
   username: '',
@@ -34,6 +37,7 @@ const handleSubmit = async () => {
     
     try {
       await apiClient.register(requestPayload);
+      router.push('/login');  
       alert("User added successfully!");
     } catch (error) {
       alert("Failed to add user");
