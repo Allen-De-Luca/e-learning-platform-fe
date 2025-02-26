@@ -1,0 +1,9 @@
+{
+    "withInterfaces": true,
+    "npmName": "frontend-api",
+    "npmVersion": "1.0.0",
+    "modelPropertyNaming": "camelCase",
+    "modelPackage": "models",
+    "apiPackage": "apis"
+  }
+  

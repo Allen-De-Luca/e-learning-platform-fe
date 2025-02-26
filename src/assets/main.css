@@ -14,3 +14,10 @@ button, input[type="submit"], input[type="reset"] {
 	cursor: pointer;
 	outline: inherit;
 }
+
+@font-face {
+	font-family: 'Boyfriend Regular';
+	src: url('../assets/fonts/Boyfriend.ttf') format('ttf');
+	font-weight: normal;
+	font-style: normal;
+}

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
-import type { Appointment } from '../../../frontend-api/models';
+import type { Appointment } from '../../../frontend-api/api';
 
 const props = defineProps({
   appointment: Object as PropType<Appointment>

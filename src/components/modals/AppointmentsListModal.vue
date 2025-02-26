@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import AppointmentCard from '@/components/cards/AppointmentCard.vue';
-import type { Appointment } from '../../../frontend-api/models';
+import type { Appointment } from '../../../frontend-api/api';
 
 const props = defineProps({
   show: Boolean,

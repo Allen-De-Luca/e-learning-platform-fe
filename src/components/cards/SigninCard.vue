@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { ReminderControllerApi } from '../../../frontend-api/apis';
-import type { RegistrationReq } from '../../../frontend-api/models';
+import { AuthControllerApi } from '../../../frontend-api/api';
+import type { RegistrationReq } from '../../../frontend-api/api';
 
 const formData = ref({
   username: '',
@@ -23,7 +23,7 @@ const removeEmailField = (index: number) => {
 
 const handleSubmit = async () => {
   if (formData.value.username && formData.value.password && formData.value.contactName && formData.value.contactLastName && formData.value.email.length > 0) {
-    let apiClient = new ReminderControllerApi();
+    let apiClient = new AuthControllerApi();
     const requestPayload: RegistrationReq = {
       username: formData.value.username,
       password: formData.value.password,
@@ -33,7 +33,7 @@ const handleSubmit = async () => {
     };
     
     try {
-      await apiClient.addUser({registrationReq: requestPayload});
+      await apiClient.register(requestPayload);
       alert("User added successfully!");
     } catch (error) {
       alert("Failed to add user");

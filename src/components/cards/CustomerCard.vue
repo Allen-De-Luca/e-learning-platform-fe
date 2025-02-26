@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import AppointmentsListModal from '@/components/modals/AppointmentsListModal.vue';
 import { defineProps, ref } from 'vue';
-import type { Appointment, Customer } from '../../../frontend-api/models';
-import { ReminderControllerApi } from '../../../frontend-api/apis';
+import { ReminderControllerApi, type Appointment, type Customer } from '../../../frontend-api/api';
+import { globalState } from '@/globalState';
 
 const props = defineProps<{
   customer: Customer;
 }>();
 
-let apiClient = new ReminderControllerApi();
+let apiClient = new ReminderControllerApi(globalState.configuration!);
 const selectedCustomerAppointments = ref<Appointment[]>([]);
 const showModal = ref(false)
 
 const fetchCustomerAppointments = async (id: number) => {
-  selectedCustomerAppointments.value = await apiClient.getAllAppointmentByCustomerId({ customerId: id });
+  selectedCustomerAppointments.value = (await apiClient.getAllAppointmentByCustomerId(id)).data;
   showModal.value = true;
 }
 

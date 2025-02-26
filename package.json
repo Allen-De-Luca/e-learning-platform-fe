@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "build-only": "vite build",
     "type-check": "vue-tsc --build",
-    "generate-api": "rmdir /s /q frontend-api && openapi-generator-cli generate -i http://localhost:8080/v3/api-docs -g typescript-fetch -o frontend-api"
+    "generate-api": "rmdir /s /q frontend-api && openapi-generator-cli generate -i http://localhost:8080/v3/api-docs -g typescript-axios -o frontend-api -c config.json"
   },
   "dependencies": {
     "@fullcalendar/core": "^6.1.15",

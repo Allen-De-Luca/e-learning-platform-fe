@@ -1,33 +1,35 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { ReminderControllerApi } from '../../../frontend-api/apis';
+import { onMounted, ref } from 'vue';
+import { AuthControllerApi } from '../../../frontend-api/api';
 import { useRouter } from 'vue-router';
-import type { User } from '../../../frontend-api/models';
+import type { AuthRsp } from '../../../frontend-api/api';
 import { globalState } from '@/globalState';
+import { Configuration } from '../../../frontend-api/configuration';
 
 const router = useRouter();
-const data = ref<User | null>(null);
+const data = ref<AuthRsp | null>(null);
 const username = ref('');
 const password = ref('');
 const errorMessage = ref('');
 
 const handleSubmit = async () => {
   if (username.value && password.value) {
-    let apiClient = new ReminderControllerApi();
-    data.value = await apiClient.authentication({
-        authReq: 
-        {
+    let apiClient = new AuthControllerApi();
+    data.value = (await apiClient.authenticate({
             username: username.value,
             password: password.value  
-        }
-    });
+        })).data;
     if (data.value) {      
         errorMessage.value = '';
-        globalState.userId = data.value.id?? null;
-        globalState.contactId = data.value.contact?.id?? null;
-        console.log(data.value);
-        
-        router.push('/customers');
+        globalState.userId = data.value.userId?? null;
+        globalState.configuration = new Configuration({
+        baseOptions: {
+          headers: {
+            Authorization: `Bearer ${data.value.token ?? ''}`,
+          },
+        },
+        });
+        router.push('/customers');      
     } else{
         errorMessage.value = 'Password or username are incorrect.';
     }
