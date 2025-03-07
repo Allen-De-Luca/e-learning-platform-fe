@@ -1,13 +1,25 @@
 <script setup lang="ts">
-import type { PropType } from 'vue';
+import { ref, type PropType } from 'vue';
 import AppointmentCard from '@/components/cards/AppointmentCard.vue';
+import CreateNewCard from '../cards/CreateNewCard.vue';
 import type { Appointment } from '../../../frontend-api/api';
 
 const props = defineProps({
   show: Boolean,
   customerName: String,
+  customerId: Number,
   appointments: Array as PropType<Appointment[]>
 })
+
+var appointments = ref<Appointment[]>(Array.from(props.appointments!));
+
+const handleRemoveAppointment = (id: number) => {
+  appointments.value = appointments?.value!.filter(a => a.id !== id);
+};
+
+const createNewAppointment = () => {
+  appointments.value.push({ id: 0 });
+};
 </script>
 
 <template>
@@ -15,6 +27,7 @@ const props = defineProps({
     <div v-if="show" class="modal-mask">
       <div class="modal-container has-background-light">
         <div class="modal-header has-background-light">
+          <button class="delete is-large" style="float: right;" @click="$emit('close')"></button>
           <p class="subtitle is-4">{{ customerName }}</p>
         </div>
         <div class="modal-body has-background-light">
@@ -22,18 +35,14 @@ const props = defineProps({
             v-for="(appointment, index) in appointments" 
             :key="index" 
             :appointment="appointment" 
+            :customerId="customerId"
+            @remove="handleRemoveAppointment"
             >
-            </AppointmentCard>
+            </AppointmentCard>         
+            <CreateNewCard @click="createNewAppointment"></CreateNewCard>
         </div>
         <div class="modal-footer has-background-light">
           <slot name="footer">
-            <button class="button"
-              @click="$emit('close')"
-            >Cancel</button>
-            <button
-              class="button is-primary modal-default-button"
-              @click="$emit('close')"
-            >Save</button>
           </slot>
         </div>
       </div>
@@ -55,7 +64,7 @@ const props = defineProps({
 }
 
 .modal-container {
-  width: 350px; /* Adjust width as needed */
+  width: 550px; /* Adjust width as needed */
   max-height: 80vh; /* Ensures the modal does not exceed viewport height */
   margin: auto;
   padding: 20px 30px;

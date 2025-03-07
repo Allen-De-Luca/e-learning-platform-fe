@@ -21,7 +21,8 @@ const handleSubmit = async () => {
         })).data;
     if (data.value) {      
         errorMessage.value = '';
-        globalState.userId = data.value.userId?? null;
+        globalState.userId = data.value.userId?? null; 
+        globalState.contactId = data.value.contactId?? null;
         globalState.configuration = new Configuration({
         baseOptions: {
           headers: {

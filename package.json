@@ -12,6 +12,9 @@
     "generate-api": "rmdir /s /q frontend-api && openapi-generator-cli generate -i http://localhost:8080/v3/api-docs -g typescript-axios -o frontend-api -c config.json"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.7.2",
+    "@fortawesome/free-solid-svg-icons": "^6.7.2",
+    "@fortawesome/vue-fontawesome": "^3.0.8",
     "@fullcalendar/core": "^6.1.15",
     "@fullcalendar/daygrid": "^6.1.15",
     "@fullcalendar/interaction": "^6.1.15",

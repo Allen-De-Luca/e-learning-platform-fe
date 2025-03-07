@@ -60,7 +60,7 @@ function getModalTitle(customer: Customer){
     </div>
   </div>
   <Teleport to="body">
-    <AppointmentsListModal v-if="selectedCustomerAppointments.length" :appointments="selectedCustomerAppointments" :customerName="getModalTitle(customer)" :show="showModal" @close="showModal = false">
+    <AppointmentsListModal :appointments="selectedCustomerAppointments" :customerId="customer.id" :customerName="getModalTitle(customer)" :show="showModal" @close="showModal = false">
     </AppointmentsListModal>
   </Teleport>
 </template>
