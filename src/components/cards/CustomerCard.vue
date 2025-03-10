@@ -1,19 +1,19 @@
 <script setup lang="ts">
 import AppointmentsListModal from '@/components/modals/AppointmentsListModal.vue';
-import { defineProps, ref } from 'vue';
-import { ReminderControllerApi, type Appointment, type Customer } from '../../../frontend-api/api';
-import { globalState } from '@/globalState';
+import { defineProps, inject, provide, ref } from 'vue';
+import { type Customer } from '../../../frontend-api/api';
 
 const props = defineProps<{
   customer: Customer;
 }>();
 
-let apiClient = new ReminderControllerApi(globalState.configuration!);
-const selectedCustomerAppointments = ref<Appointment[]>([]);
+const customerId = ref<number | null>(props.customer?.id!);
+provide('customerId', customerId);
+
 const showModal = ref(false)
 
 const fetchCustomerAppointments = async (id: number) => {
-  selectedCustomerAppointments.value = (await apiClient.getAllAppointmentByCustomerId(id)).data;
+  customerId.value = id;
   showModal.value = true;
 }
 
@@ -60,7 +60,7 @@ function getModalTitle(customer: Customer){
     </div>
   </div>
   <Teleport to="body">
-    <AppointmentsListModal :appointments="selectedCustomerAppointments" :customerId="customer.id" :customerName="getModalTitle(customer)" :show="showModal" @close="showModal = false">
+    <AppointmentsListModal :customerName="getModalTitle(customer)" :show="showModal" @close="showModal = false">
     </AppointmentsListModal>
   </Teleport>
 </template>

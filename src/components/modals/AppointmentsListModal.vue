@@ -1,17 +1,25 @@
 <script setup lang="ts">
-import { ref, type PropType } from 'vue';
+import { inject, onMounted, ref, type PropType, type Ref } from 'vue';
 import AppointmentCard from '@/components/cards/AppointmentCard.vue';
 import CreateNewCard from '../cards/CreateNewCard.vue';
-import type { Appointment } from '../../../frontend-api/api';
+import { ReminderControllerApi, type Appointment } from '../../../frontend-api/api';
+import { globalState } from '@/globalState';
 
 const props = defineProps({
   show: Boolean,
   customerName: String,
-  customerId: Number,
-  appointments: Array as PropType<Appointment[]>
 })
 
-var appointments = ref<Appointment[]>(Array.from(props.appointments!));
+let apiClient = new ReminderControllerApi(globalState.configuration!);
+var appointments = ref<Appointment[]>([]);
+const customerId = inject<Ref<number | null>>('customerId');
+
+onMounted(async () => {
+  if(customerId){
+    appointments.value = (await apiClient.getAllAppointmentByCustomerId(customerId.value!)).data;
+  }
+});
+
 
 const handleRemoveAppointment = (id: number) => {
   appointments.value = appointments?.value!.filter(a => a.id !== id);
@@ -20,6 +28,12 @@ const handleRemoveAppointment = (id: number) => {
 const createNewAppointment = () => {
   appointments.value.push({ id: 0 });
 };
+
+async function refresh(){
+  if(customerId){
+    appointments.value = (await apiClient.getAllAppointmentByCustomerId(customerId.value!)).data;
+  }
+}
 </script>
 
 <template>
@@ -27,7 +41,7 @@ const createNewAppointment = () => {
     <div v-if="show" class="modal-mask">
       <div class="modal-container has-background-light">
         <div class="modal-header has-background-light">
-          <button class="delete is-large" style="float: right;" @click="$emit('close')"></button>
+          <button class="delete is-large" style="float: right;" @click="$emit('close'); refresh()"></button>
           <p class="subtitle is-4">{{ customerName }}</p>
         </div>
         <div class="modal-body has-background-light">
@@ -35,7 +49,7 @@ const createNewAppointment = () => {
             v-for="(appointment, index) in appointments" 
             :key="index" 
             :appointment="appointment" 
-            :customerId="customerId"
+            :customerId="inject('customerId')"
             @remove="handleRemoveAppointment"
             >
             </AppointmentCard>         

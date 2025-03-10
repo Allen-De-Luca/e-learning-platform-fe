@@ -1,11 +1,10 @@
 <script setup lang="ts">
-import { ref, type PropType } from 'vue';
+import { inject, ref, type PropType, type Ref } from 'vue';
 import { ReminderControllerApi, type Appointment } from '../../../frontend-api/api';
 import { globalState } from '@/globalState';
 
 const props = defineProps({
-  appointment: Object as PropType<Appointment>,
-  customerId: Number
+  appointment: Object as PropType<Appointment>
 })
 
 const emit = defineEmits<{
@@ -23,13 +22,14 @@ let apiClient = new ReminderControllerApi(globalState.configuration!);
 
 var notes = ref(props.appointment?.notes);
 var id = ref(props.appointment?.id);
+const customerId = inject<Ref<number | null>>('customerId');
 const appointmentDate = ref(props.appointment?.appointmentDate);
 const reminderDate = ref(props.appointment?.reminderDate);
 const editMode = ref(false);
 
 const saveAppointment = () => {
   let appReq: any= {
-    customerId: props.customerId,
+    customerId: customerId?.value,
     contactId: globalState.contactId!,
     appId: id.value,
     appointmentDate: appointmentDate.value,
